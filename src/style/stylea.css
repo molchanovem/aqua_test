@@ -1,0 +1,161 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat Regular'), local('Montserrat'), url('http://hb.bizmrg.com/fonts/montserrat/400.woff2') format('woff2'), url('http://hb.bizmrg.com/fonts/montserrat/400.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat Bold'), local('Montserrat-Bold'), url('http://hb.bizmrg.com/fonts/montserrat/700.woff2') format('woff2'), url('http://hb.bizmrg.com/fonts/montserrat/700.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat Medium'), local('Montserrat-Medium'), url('http://hb.bizmrg.com/fonts/montserrat/500.woff2') format('woff2'), url('http://hb.bizmrg.com/fonts/montserrat/500.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+.avtorization{
+height: 100vh;
+    display: grid;
+    place-items: center;
+
+}
+
+.form{
+    width: 407px;
+    height: 482px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06); 
+
+}
+
+.formOne{
+    display: grid;
+    min-width: 342px;
+margin-top: 30px;
+}
+
+.formTwo{
+    place-items: center;
+}
+
+.formOne input{
+
+    border-radius: 5px;
+    min-height: 38px;
+    border: 1px solid rgba(216, 214, 222, 1)
+    
+}
+
+.formOne button{
+    margin-top: 30px;
+    border-radius: 5px;
+     min-height: 38px;
+     border-color: none;
+     border: none;
+     background-color: rgba(115, 103, 240, 1);
+     color: rgba(255, 255, 255, 1);
+}
+
+.form h4{
+font-family: Montserrat;
+font-size: 24px;
+line-height: 100%;
+letter-spacing: -0.43px;
+color: rgba(115, 103, 240, 1);
+font-weight: bold;
+}
+
+
+
+.txt{
+    max-width: 334px;
+    max-height: 72px;
+}
+.one{
+    color: rgba(94, 88, 115, 1);
+font-family: Montserrat;
+font-weight: 500;
+font-size: 18px;
+line-height: 100%;
+letter-spacing: 0px;
+
+}
+
+.two{
+    color: rgba(110, 107, 123, 1);
+    font-family: Montserrat;
+font-weight: 400;
+font-size: 14px;
+
+line-height: 21px;
+letter-spacing: 0px;
+
+}
+
+
+.link {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 2px;
+    margin-top: 20px;
+}
+
+.link a{
+    text-decoration: none;
+    color: rgba(115, 103, 240, 1);
+    font-family: Montserrat;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+letter-spacing: 0px;
+text-align: right;
+
+}
+
+.link label{
+    font-family: Montserrat;
+font-weight: 400;
+font-size: 12px;
+
+line-height: 18px;
+letter-spacing: 0px;
+color: rgba(110, 107, 123, 1);
+}
+
+
+.email{
+font-family: Montserrat;
+font-weight: 400;
+font-size: 12px;
+
+line-height: 18px;
+letter-spacing: 0px;
+color: rgba(110, 107, 123, 1);
+margin-bottom: 2px;
+}
+
+.formOne p, .formOne input {
+    margin: 0;
+    padding: 0;
+}
+
+
+input::placeholder { 
+    padding-left: 20px;
+    font-family: Montserrat;
+font-weight: 400;
+font-size: 12px;
+
+line-height: 24px;
+letter-spacing: 0px;
+color: rgba(185, 185, 195, 1);
+
+};
+
