@@ -18,26 +18,37 @@ const Avtorization: React.FC = () => {
 
   const onSubmit = async (values: { login: string; password: string }) => {
     try {
-      const res = await axios.post('https://api.test.aqua-delivery.ru/v1/auth/login/', {
-        login: values.login,
-        password: values.password,
-      });
+      console.log('Отправка запроса с данными:', values);
 
-      const token = res.data.auth_key;
+      const res = await axios.post(
+        '/v1/auth/login/',
+        {
+          login: values.login,
+          password: values.password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log('Ответ от сервера:', res); 
+
+      const token = res.data.data.auth_key;
 
       if (!token) {
+        console.warn('Токен не получен из ответа сервера'); 
         setError('Не удалось получить токен авторизации');
         return;
       }
 
-
       localStorage.setItem('token', token);
-
 
       setError(null);
       navigate('/profile');
-    } catch (err) {
-
+    } catch (err: any) {
+      console.error('Ошибка при запросе авторизации:', err.response?.data || err.message); // 👈 лог ошибки
       setError('Неверный логин или пароль');
     }
   };
@@ -56,16 +67,23 @@ const Avtorization: React.FC = () => {
             onSubmit={onSubmit}
             validate={validate}
             render={({ handleSubmit }) => (
-              <form className='formOne' onSubmit={handleSubmit} noValidate>
-                <label className='email' htmlFor="login">Email</label>
-                <Field<string> name="login">
+              <form
+                className='formOne'
+                onSubmit={(e) => {
+                  console.log('Сабмит формы'); // 👈 лог при отправке формы
+                  handleSubmit(e);
+                }}
+                noValidate
+              >
+                <label className='email' htmlFor='login'>Email</label>
+                <Field<string> name='login'>
                   {({ input, meta }: FieldRenderProps<string, any>) => (
                     <>
                       <input
                         {...input}
-                        id="login"
+                        id='login'
                         placeholder='johndoe@gmail.com'
-                        autoComplete="username"
+                        autoComplete='username'
                       />
                       {meta.touched && meta.error && (
                         <span style={{ color: 'red' }}>{meta.error}</span>
@@ -75,21 +93,21 @@ const Avtorization: React.FC = () => {
                 </Field>
 
                 <div className='link'>
-                  <label   htmlFor="password">Password</label>{' '}
-                  <a href="#" onClick={(e) => e.preventDefault()}>
+                  <label htmlFor='password'>Password</label>{' '}
+                  <a href='#' onClick={(e) => e.preventDefault()}>
                     Forgot Password?
                   </a>
                 </div>
 
-                <Field<string> name="password">
+                <Field<string> name='password'>
                   {({ input, meta }: FieldRenderProps<string, any>) => (
                     <>
                       <input
                         {...input}
-                        type="password"
-                        id="password"
+                        type='password'
+                        id='password'
                         placeholder='⚉ ⚉ ⚉ ⚉ ⚉ ⚉ ⚉ ⚉'
-                        autoComplete="current-password"
+                        autoComplete='current-password'
                       />
                       {meta.touched && meta.error && (
                         <span style={{ color: 'red' }}>{meta.error}</span>
@@ -100,9 +118,7 @@ const Avtorization: React.FC = () => {
 
                 {error && <p style={{ color: 'red' }}>{error}</p>}
 
-                <button type="submit">
-                  Login
-                </button>
+                <button type='submit'>Login</button>
               </form>
             )}
           />

@@ -4,10 +4,10 @@ import '../style/stylep.css';
 
 interface Message {
   id: number;
-  create_at: string;
+  created_at: string;
   type: string;
   message: string;
-  from_user: boolean;
+  is_not_client_message: boolean;
 }
 
 const Profile: React.FC = () => {
@@ -22,14 +22,31 @@ const Profile: React.FC = () => {
           setError('Токен не найден. Пожалуйста, войдите в систему.');
           return;
         }
-        
-        const res = await axios.get(`https://api.test.aqua-delivery.ru/v1/chat/get-messages?id=1230`, {
+
+        const userStr = localStorage.getItem('user');
+        let userId = 1230;
+        if (userStr) {
+          try {
+            const user = JSON.parse(userStr);
+            if (user && user.id) {
+              userId = user.id;
+            }
+          } catch {
+
+          }
+        }
+
+        const res = await axios.get(`/v1/chat/get-messages?id=${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setMessages(res.data.messages || []); 
+
+        console.log('Ответ с сервера:', res.data);
+
+        setMessages(res.data.data || []);
       } catch (err) {
+        console.error('Ошибка при загрузке сообщений:', err);
         setError('Ошибка при загрузке сообщений');
       }
     };
@@ -64,20 +81,23 @@ const Profile: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {messages.map(msg => (
-              <tr
-                key={msg.id}
-                style={{ color: msg.from_user ? 'green' : 'inherit' }}
-              >
-                <td>{formatDate(msg.create_at)}</td>
-                <td>{msg.type}</td>
-                <td>{msg.message}</td>
-              </tr>
-            ))}
-            {messages.length === 0 && !error && (
-              <tr>
-                <td colSpan={3}>Сообщений нет</td>
-              </tr>
+            {messages.length > 0 ? (
+              messages.map(msg => (
+                <tr
+                  key={msg.id}
+                  style={{ color: msg.is_not_client_message ? 'green' : 'inherit' }}
+                >
+                  <td>{formatDate(msg.created_at)}</td>
+                  <td>{msg.type}</td>
+                  <td>{msg.message}</td>
+                </tr>
+              ))
+            ) : (
+              !error && (
+                <tr>
+                  <td colSpan={3}>Сообщений нет</td>
+                </tr>
+              )
             )}
           </tbody>
         </table>
